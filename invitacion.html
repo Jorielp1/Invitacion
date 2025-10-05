@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Invitación - Gender Reveal</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;500;700&display=swap');
+    
+    body {
+      margin:0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #59b8ff 50%, #ff6fa3 50%);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:100vh;
+      padding:20px;
+    }
+    .card {
+      background: white;
+      border-radius:25px;
+      padding:40px 30px;
+      max-width:800px;
+      width:100%;
+      box-shadow:0 12px 40px rgba(0,0,0,0.25);
+      text-align:center;
+      position:relative;
+      overflow:hidden;
+    }
+    /* decoraciones globos */
+    .balloon {
+      position:absolute;
+      width:90px;
+      height:120px;
+      border-radius:50%;
+      top:-40px;
+      z-index:0;
+    }
+    .balloon.blue { left:-30px; background:#59b8ff; }
+    .balloon.pink { right:-30px; background:#ff6fa3; }
+    
+    h1 {
+      font-family:'Pacifico', cursive;
+      font-size:48px;
+      margin-bottom:5px;
+      color:#444;
+      position:relative;
+      z-index:1;
+    }
+    h2 {
+      font-size:36px;
+      margin:10px 0 20px;
+      color:#59b8ff;
+      font-weight:700;
+      position:relative;
+      z-index:1;
+    }
+    h2 span {
+      color:#ff6fa3;
+    }
+    p {
+      font-size:18px;
+      color:#555;
+      margin:10px 0 20px;
+      position:relative;
+      z-index:1;
+    }
+    .highlight {
+      font-size:22px;
+      font-weight:700;
+      color:#333;
+      margin:15px 0;
+    }
+    .date, .place {
+      font-size:20px;
+      margin:10px 0;
+      font-weight:bold;
+      color:#222;
+    }
+    .outfit {
+      font-size:18px;
+      background:#f9f9f9;
+      border-radius:12px;
+      padding:12px;
+      margin:20px 0;
+      border:2px dashed #eee;
+    }
+    /* contador */
+    .countdown {
+      display:flex;
+      justify-content:center;
+      gap:15px;
+      margin:20px 0;
+      position:relative;
+      z-index:1;
+    }
+    .time-box {
+      background:#fff;
+      border-radius:12px;
+      box-shadow:0 4px 10px rgba(0,0,0,0.1);
+      padding:12px;
+      width:90px;
+    }
+    .time-box span {
+      display:block;
+      font-size:24px;
+      font-weight:bold;
+      color:#444;
+    }
+    .time-box small {
+      font-size:13px;
+      color:#777;
+    }
+    .cta {
+      margin-top:25px;
+      z-index:1;
+      position:relative;
+    }
+    .btn {
+      background:linear-gradient(90deg, #59b8ff, #ff6fa3);
+      color:white;
+      padding:14px 24px;
+      font-size:18px;
+      border:none;
+      border-radius:15px;
+      cursor:pointer;
+      font-weight:600;
+      box-shadow:0 6px 14px rgba(0,0,0,0.2);
+      transition:transform 0.2s;
+    }
+    .btn:hover {
+      transform:scale(1.05);
+    }
+    footer {
+      margin-top:25px;
+      font-size:15px;
+      color:#777;
+    }
+    /* confeti */
+    .confetti {
+      position:absolute;
+      top:0; left:0; right:0; bottom:0;
+      overflow:hidden;
+      z-index:0;
+      pointer-events:none;
+    }
+    .confetti span {
+      position:absolute;
+      width:10px;
+      height:10px;
+      background: #59b8ff;
+      animation: fall 6s linear infinite;
+      border-radius:2px;
+    }
+    .confetti span:nth-child(2n) { background:#ff6fa3; }
+    @keyframes fall {
+      0% { transform:translateY(-10px) rotate(0); opacity:1; }
+      100% { transform:translateY(100vh) rotate(360deg); opacity:0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="balloon blue"></div>
+    <div class="balloon pink"></div>
+    <div class="confetti" id="confetti"></div>
+    
+    <h1>¡Estás Invitado/a!</h1>
+    <h2>¿Boy o<span>r Girl</span>?</h2>
+    <p>Ven a compartir con nosotros un momento mágico donde revelaremos el secreto más esperado.</p>
+    
+    <div class="highlight">💙 Revelación de Género 🩷</div>
+    
+    <div class="date">📅 Sábado 15 de Noviembre, 2025 - 4:00 PM</div>
+    <div class="place">📍 Dias antes se les estara dejando saber donde se realizara</div>
+    
+    <div class="outfit"> No habra codigo de vestimenta, personalmente se les preguntara cual genero
+        creen que sera.
+    </div>
+    
+    <!-- Contador -->
+    <div class="countdown" id="countdown">
+      <div class="time-box"><span id="days">00</span><small>Días</small></div>
+      <div class="time-box"><span id="hours">00</span><small>Horas</small></div>
+      <div class="time-box"><span id="minutes">00</span><small>Minutos</small></div>
+      <div class="time-box"><span id="seconds">00</span><small>Segundos</small></div>
+    </div>
+    
+    <div class="cta">
+      <button class="btn" onclick="window.location.href='https://wa.me/18494749351?text=Confirmo%20mi%20asistencia%20a%20la%20revelación%20💙💖'">
+        Confirmar asistencia vía WhatsApp
+      </button>
+    </div>
+    
+    <footer>
+      ¡Tu presencia hará que este día sea inolvidable! 🌟
+    </footer>
+  </div>
+  
+  <script>
+    // generar confeti
+    const confetti = document.getElementById('confetti');
+    for(let i=0;i<40;i++){
+      const span=document.createElement('span');
+      span.style.left=Math.random()*100+'%';
+      span.style.animationDelay=(Math.random()*6)+'s';
+      span.style.width=8+Math.random()*8+'px';
+      span.style.height=8+Math.random()*8+'px';
+      confetti.appendChild(span);
+    }
+
+    // contador
+    const eventDate = new Date("Nov 15, 2025 16:00:00").getTime();
+    const countdown = setInterval(() => {
+      const now = new Date().getTime();
+      const diff = eventDate - now;
+
+      if (diff <= 0) {
+        document.getElementById("countdown").innerHTML = "<b>¡El gran día ha llegado! 🎉</b>";
+        clearInterval(countdown);
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      document.getElementById("days").innerText = days;
+      document.getElementById("hours").innerText = hours;
+      document.getElementById("minutes").innerText = minutes;
+      document.getElementById("seconds").innerText = seconds;
+    }, 1000);
+  </script>
+</body>
+</html>
